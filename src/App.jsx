@@ -97,6 +97,45 @@ const demoIDCard = {
     twitter: "@alexr",
     snapchat: "alexr99"
   },
+  mutualParties: [
+    {
+      name: "Summer Rooftop Bash",
+      date: "Aug 15, 2024",
+      image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=100"
+    },
+    {
+      name: "Halloween Costume Party",
+      date: "Oct 31, 2024",
+      image: "https://images.unsplash.com/photo-1509557965875-b88c97052f0e?w=100"
+    },
+    {
+      name: "New Year's Eve 2024",
+      date: "Dec 31, 2024",
+      image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=100"
+    }
+  ],
+  mutualFriends: [
+    {
+      name: "Jordan Chen",
+      avatar: "https://i.pravatar.cc/100?img=12",
+      mutualCount: 8
+    },
+    {
+      name: "Sam Williams",
+      avatar: "https://i.pravatar.cc/100?img=25",
+      mutualCount: 5
+    },
+    {
+      name: "Taylor Kim",
+      avatar: "https://i.pravatar.cc/100?img=47",
+      mutualCount: 3
+    },
+    {
+      name: "Casey Martinez",
+      avatar: "https://i.pravatar.cc/100?img=33",
+      mutualCount: 2
+    }
+  ],
   decoration: 'pin'
 };
 

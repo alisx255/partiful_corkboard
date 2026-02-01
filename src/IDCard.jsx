@@ -10,11 +10,14 @@ const IDCard = ({
   partiesAttended,
   partiesHosted,
   socialLinks = {},
+  mutualParties = [],
+  mutualFriends = [],
   onDelete,
   onDecorationUpdate,
   decoration = null
 }) => {
   const [rightClicked, setRightClicked] = useState(false);
+  const [activePopup, setActivePopup] = useState(null); // 'attended' or 'hosted'
 
   const handleDelete = (e) => {
     e.stopPropagation();
@@ -25,6 +28,16 @@ const IDCard = ({
     e.preventDefault();
     e.stopPropagation();
     setRightClicked(!rightClicked);
+  };
+
+  const handleStatClick = (e, type) => {
+    e.stopPropagation();
+    setActivePopup(activePopup === type ? null : type);
+    setRightClicked(false);
+  };
+
+  const closePopup = () => {
+    setActivePopup(null);
   };
 
   const getInitial = (name) => name?.charAt(0).toUpperCase() || '?';
@@ -42,7 +55,12 @@ const IDCard = ({
       }}
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       onContextMenu={handleRightClick}
-      onClick={(e) => !e.target.closest('.id-card-decoration-menu') && setRightClicked(false)}
+      onClick={(e) => {
+        if (!e.target.closest('.id-card-decoration-menu') && !e.target.closest('.stat-popup')) {
+          setRightClicked(false);
+          setActivePopup(null);
+        }
+      }}
     >
       {/* Left side - Photo */}
       <div className="id-card-photo-section">
@@ -69,15 +87,93 @@ const IDCard = ({
       {/* Right side - Stats & Social */}
       <div className="id-card-sidebar">
         <div className="stats-grid">
-          <div className="stat-item">
+          <div
+            className={`stat-item clickable ${activePopup === 'attended' ? 'active' : ''}`}
+            onClick={(e) => handleStatClick(e, 'attended')}
+          >
             <span className="stat-value">{partiesAttended}</span>
             <span className="stat-label">Attended</span>
           </div>
-          <div className="stat-item">
+          <div
+            className={`stat-item clickable ${activePopup === 'hosted' ? 'active' : ''}`}
+            onClick={(e) => handleStatClick(e, 'hosted')}
+          >
             <span className="stat-value">{partiesHosted}</span>
             <span className="stat-label">Hosted</span>
           </div>
         </div>
+
+        {/* Mutual Parties Popup */}
+        <AnimatePresence>
+          {activePopup === 'attended' && (
+            <motion.div
+              className="stat-popup"
+              initial={{ opacity: 0, scale: 0.9, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: -10 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="popup-header">
+                <h4>Mutual Parties</h4>
+                <button className="popup-close" onClick={closePopup}>×</button>
+              </div>
+              <div className="popup-content">
+                {mutualParties.length > 0 ? (
+                  <ul className="mutual-list">
+                    {mutualParties.map((party, idx) => (
+                      <li key={idx} className="mutual-item party-item">
+                        {party.image && <img src={party.image} alt={party.name} className="mutual-image" />}
+                        <div className="mutual-info">
+                          <span className="mutual-name">{party.name}</span>
+                          <span className="mutual-detail">{party.date}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="popup-empty">No mutual parties yet</p>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
+        {/* Mutual Friends Popup */}
+        <AnimatePresence>
+          {activePopup === 'hosted' && (
+            <motion.div
+              className="stat-popup"
+              initial={{ opacity: 0, scale: 0.9, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: -10 }}
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="popup-header">
+                <h4>Mutual Friends</h4>
+                <button className="popup-close" onClick={closePopup}>×</button>
+              </div>
+              <div className="popup-content">
+                {mutualFriends.length > 0 ? (
+                  <ul className="mutual-list">
+                    {mutualFriends.map((friend, idx) => (
+                      <li key={idx} className="mutual-item friend-item">
+                        {friend.avatar && <img src={friend.avatar} alt={friend.name} className="mutual-avatar" />}
+                        <div className="mutual-info">
+                          <span className="mutual-name">{friend.name}</span>
+                          {friend.mutualCount && (
+                            <span className="mutual-detail">{friend.mutualCount} mutual parties</span>
+                          )}
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="popup-empty">No mutual friends yet</p>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {hasSocialLinks && (
           <div className="social-links">
