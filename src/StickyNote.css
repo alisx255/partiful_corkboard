@@ -1,0 +1,271 @@
+.sticky-note {
+  position: absolute;
+  width: 170px;
+  min-height: 170px;
+  padding: 12px;
+  cursor: pointer;
+  z-index: 100;
+  border-radius: 2px;
+  transition: box-shadow 0.2s, transform 0.2s;
+  /* Photorealistic shadows - multiple layers for depth */
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.2),
+    0 4px 8px rgba(0, 0, 0, 0.15),
+    0 2px 4px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  /* Paper texture using noise pattern */
+  background-image: 
+    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>'),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.02) 2px,
+      rgba(0, 0, 0, 0.02) 4px
+    );
+  /* Subtle curl effect at edges */
+  clip-path: polygon(
+    0% 0%,
+    98% 0%,
+    100% 2%,
+    100% 98%,
+    98% 100%,
+    0% 100%
+  );
+  /* Slight perspective transform */
+  transform-style: preserve-3d;
+}
+
+.sticky-note:hover {
+  box-shadow: 
+    0 12px 24px rgba(0, 0, 0, 0.25),
+    0 6px 12px rgba(0, 0, 0, 0.2),
+    0 3px 6px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  transform: translateY(-2px) rotate(0.5deg);
+}
+
+/* Color variants - photorealistic muted colors with gradients */
+.sticky-note-yellow {
+  background: 
+    linear-gradient(135deg, 
+      rgba(255, 249, 196, 0.95) 0%, 
+      rgba(255, 235, 59, 0.98) 50%,
+      rgba(255, 230, 50, 0.95) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.1) 2px
+    );
+  /* Subtle highlight on top edge */
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sticky-note-pink {
+  background: 
+    linear-gradient(135deg, 
+      rgba(252, 228, 236, 0.95) 0%, 
+      rgba(244, 143, 177, 0.98) 50%,
+      rgba(240, 130, 170, 0.95) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.1) 2px
+    );
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sticky-note-blue {
+  background: 
+    linear-gradient(135deg, 
+      rgba(227, 242, 253, 0.95) 0%, 
+      rgba(144, 202, 249, 0.98) 50%,
+      rgba(130, 190, 245, 0.95) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.1) 2px
+    );
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sticky-note-green {
+  background: 
+    linear-gradient(135deg, 
+      rgba(232, 245, 233, 0.95) 0%, 
+      rgba(165, 214, 167, 0.98) 50%,
+      rgba(155, 210, 157, 0.95) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.1) 2px
+    );
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sticky-note-orange {
+  background: 
+    linear-gradient(135deg, 
+      rgba(255, 243, 224, 0.95) 0%, 
+      rgba(255, 183, 77, 0.98) 50%,
+      rgba(255, 175, 70, 0.95) 100%
+    ),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 1px,
+      rgba(255, 255, 255, 0.1) 1px,
+      rgba(255, 255, 255, 0.1) 2px
+    );
+  border-top: 1px solid rgba(255, 255, 255, 0.4);
+  border-left: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.sticky-note-drag-handle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  cursor: move;
+  z-index: 10;
+  border-radius: 2px 2px 0 0;
+  /* Subtle gradient for drag handle area */
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.03) 0%,
+    rgba(0, 0, 0, 0.01) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.2s;
+  pointer-events: auto;
+  /* Add subtle texture to drag handle */
+  background-image: 
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 0, 0, 0.01) 2px,
+      rgba(0, 0, 0, 0.01) 4px
+    );
+}
+
+.sticky-note:hover .sticky-note-drag-handle {
+  opacity: 1;
+}
+
+.sticky-note-content {
+  font-family: 'Kalam', 'Comic Sans MS', cursive, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  min-height: 140px;
+  user-select: text;
+  margin-top: 30px;
+}
+
+.sticky-note-placeholder {
+  color: #999;
+  font-style: italic;
+}
+
+.sticky-note-textarea {
+  width: 100%;
+  min-height: 140px;
+  border: none;
+  background: transparent;
+  font-family: 'Kalam', 'Comic Sans MS', cursive, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  color: #333;
+  resize: none;
+  outline: none;
+  padding: 0;
+}
+
+.sticky-note-delete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #666;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s;
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.sticky-note:hover .sticky-note-delete {
+  opacity: 1;
+}
+
+.sticky-note-delete:hover {
+  background: rgba(255, 0, 0, 0.2);
+  color: #d32f2f;
+}
+
+.sticky-note-edit {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.sticky-note-edit:hover {
+  background: rgba(255, 255, 255, 1);
+  transform: scale(1.1);
+}
+

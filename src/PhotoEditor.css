@@ -1,0 +1,187 @@
+.photo-editor-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.photo-editor-dialog {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  max-width: 600px;
+  width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+}
+
+.photo-editor-dialog h2 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.photo-count-selector {
+  margin-bottom: 24px;
+}
+
+.photo-count-selector label {
+  display: block;
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: #555;
+}
+
+.count-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.count-button {
+  flex: 1;
+  padding: 12px 24px;
+  border: 2px solid #ddd;
+  background: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.count-button:hover {
+  border-color: #007bff;
+  background: #f0f8ff;
+}
+
+.count-button.active {
+  border-color: #007bff;
+  background: #007bff;
+  color: white;
+}
+
+.photo-upload-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.photo-upload-slot {
+  aspect-ratio: 1;
+  border: 2px dashed #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  background: #f9f9f9;
+}
+
+.photo-upload-label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.photo-upload-label:hover {
+  background: #f0f0f0;
+  border-color: #007bff;
+}
+
+.upload-icon {
+  font-size: 48px;
+  margin-bottom: 8px;
+  opacity: 0.5;
+}
+
+.upload-text {
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+.photo-preview {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.remove-photo {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: rgba(255, 0, 0, 0.8);
+  border-radius: 50%;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.remove-photo:hover {
+  background: rgba(255, 0, 0, 1);
+}
+
+.photo-editor-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.cancel-button,
+.save-button {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.cancel-button {
+  background: #f0f0f0;
+  color: #333;
+}
+
+.cancel-button:hover {
+  background: #e0e0e0;
+}
+
+.save-button {
+  background: #007bff;
+  color: white;
+}
+
+.save-button:hover:not(:disabled) {
+  background: #0056b3;
+}
+
+.save-button:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+

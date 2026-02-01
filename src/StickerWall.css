@@ -1,0 +1,973 @@
+.sticker-wall-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: visible;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Board Themes */
+.theme-corkboard .sticker-wall {
+  background: 
+    /* Realistic corkboard texture - using a free texture from a CDN */
+    url('https://www.transparenttextures.com/patterns/cork-board.png'),
+    /* Additional texture layer for depth */
+    url('https://www.transparenttextures.com/patterns/paper-fibers.png'),
+    /* Base corkboard color with variation */
+    linear-gradient(135deg, #d4a574 0%, #c99d6a 25%, #d4a574 50%, #b8955f 75%, #c99d6a 100%);
+  background-size: 400px 400px, 200px 200px, 100% 100%;
+  background-blend-mode: multiply, overlay, normal;
+  background-attachment: local, local, scroll; /* Scroll with content */
+  background-repeat: repeat, repeat, no-repeat;
+  box-shadow: 
+    inset 0 0 100px rgba(0, 0, 0, 0.15), 
+    inset 0 0 200px rgba(0, 0, 0, 0.05),
+    inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: 6px solid #8b6f47;
+  border-radius: 8px;
+  position: relative;
+}
+
+/* Add subtle texture overlay for more realism */
+.theme-corkboard .sticker-wall::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 30%, rgba(139, 111, 71, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(139, 111, 71, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(0, 0, 0, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.theme-locker .sticker-wall {
+  background: #dc2626; /* Solid red color */
+  background-attachment: scroll; /* Ensure it scrolls with content */
+  box-shadow: 
+    inset 0 0 30px rgba(0, 0, 0, 0.2),
+    inset 0 0 60px rgba(0, 0, 0, 0.1),
+    inset 0 2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 -2px 4px rgba(255, 255, 255, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.3);
+  border: 8px solid #991b1b;
+  border-radius: 4px;
+  position: relative;
+}
+
+/* Locker combination lock at the top */
+.theme-locker .sticker-wall::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 60px;
+  background: 
+    radial-gradient(circle at center, #e5e7eb 0%, #d1d5db 30%, #9ca3af 60%, #6b7280 100%),
+    radial-gradient(circle at center, transparent 0%, transparent 45%, #1f2937 45%, #1f2937 50%, transparent 50%);
+  border-radius: 50%;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.3),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2),
+    inset 0 0 0 8px rgba(31, 41, 55, 0.3);
+  z-index: 10;
+  border: 3px solid #4b5563;
+}
+
+/* Add 3 horizontal lines in the middle - each 3/4 width */
+.theme-locker .sticker-wall::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    /* First horizontal line - 3/4 width, centered */
+    linear-gradient(
+      0deg,
+      transparent calc(33.33% - 1px),
+      rgba(0, 0, 0, 0.15) calc(33.33% - 1px),
+      rgba(0, 0, 0, 0.15) calc(33.33% + 1px),
+      transparent calc(33.33% + 1px)
+    ),
+    /* Second horizontal line - 3/4 width, centered */
+    linear-gradient(
+      0deg,
+      transparent calc(50% - 1px),
+      rgba(0, 0, 0, 0.15) calc(50% - 1px),
+      rgba(0, 0, 0, 0.15) calc(50% + 1px),
+      transparent calc(50% + 1px)
+    ),
+    /* Third horizontal line - 3/4 width, centered */
+    linear-gradient(
+      0deg,
+      transparent calc(66.67% - 1px),
+      rgba(0, 0, 0, 0.15) calc(66.67% - 1px),
+      rgba(0, 0, 0, 0.15) calc(66.67% + 1px),
+      transparent calc(66.67% + 1px)
+    );
+  background-size: 
+    75% 2px, /* First line - 3/4 width, 2px height */
+    75% 2px, /* Second line - 3/4 width, 2px height */
+    75% 2px; /* Third line - 3/4 width, 2px height */
+  background-position: 
+    50% 33.33%, /* First line - centered horizontally, at 33.33% vertically */
+    50% 50%, /* Second line - centered horizontally, at 50% vertically */
+    50% 66.67%; /* Third line - centered horizontally, at 66.67% vertically */
+  background-attachment: local; /* Scroll with content */
+  background-repeat: no-repeat;
+  pointer-events: none;
+  z-index: 0; /* Behind all content */
+}
+
+
+.theme-notebook .sticker-wall {
+  background: 
+    repeating-linear-gradient(
+      0deg,
+      transparent 0px,
+      transparent 39px,
+      #e8e8e8 39px,
+      #e8e8e8 40px
+    ),
+    linear-gradient(90deg, #fffef7 0%, #fffef7 60px, #ff0000 60px, #ff0000 62px, #fffef7 62px);
+  background-size: 100% 40px, 100% 100%;
+  background-attachment: local, scroll; /* Scroll with content */
+  background-repeat: repeat, no-repeat;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.03);
+  border: 4px solid #d0d0d0;
+  border-radius: 4px;
+}
+
+.sticker-wall-controls {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10000;
+  background: rgba(255, 255, 255, 0.95);
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+
+.instructions {
+  font-size: 12px;
+  color: #666;
+  margin: 0;
+}
+
+.instructions p {
+  margin: 0;
+}
+
+.sticker-wall {
+  position: relative;
+  width: 66.67%; /* Reduced by 1/3 (2/3 of original) */
+  max-width: 800px; /* Cap max width for very large screens */
+  margin: 0 auto; /* Center horizontally */
+  flex: 1;
+  overflow-y: scroll;
+  overflow-x: visible;
+  padding: 50px;
+  cursor: default;
+  /* Force scrollbar to always be visible */
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.1);
+  /* Ensure scrolling works */
+  -webkit-overflow-scrolling: touch;
+  /* Ensure content can be scrolled */
+  will-change: scroll-position;
+}
+
+/* Custom scrollbar for board - Webkit browsers */
+.sticker-wall::-webkit-scrollbar {
+  width: 14px;
+}
+
+.sticker-wall::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+}
+
+.sticker-wall::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.4);
+  border-radius: 7px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+}
+
+.sticker-wall::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.6);
+}
+
+/* Firefox scrollbar */
+.sticker-wall {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.4) rgba(0, 0, 0, 0.1);
+}
+
+.sticker-wall-content {
+  overflow: visible !important;
+  position: relative;
+  z-index: 1; /* Ensure content is above the ::before pseudo-element */
+}
+
+.sticker-badge {
+  position: absolute;
+  width: 225px;
+  height: 225px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible;
+  will-change: transform;
+}
+
+/* Badges with images - no border, no background */
+.sticker-badge.has-image {
+  background: transparent !important;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.sticker-badge.has-image .badge-content {
+  background: transparent;
+  padding: 0;
+}
+
+.sticker-badge.has-image .badge-placeholder {
+  background: transparent;
+  border: none;
+}
+
+.sticker-badge.has-image:hover {
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.sticker-badge.has-image.selected {
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+}
+
+.sticker-badge.has-image.right-clicked {
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+}
+
+.sticker-badge.has-image.related {
+  box-shadow: 0 8px 30px rgba(76, 175, 80, 0.5);
+}
+
+/* Decoration menu */
+.badge-decoration-menu {
+  position: absolute;
+  top: -120px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 10000 !important;
+  white-space: nowrap;
+  min-width: 150px;
+  pointer-events: auto;
+  overflow: visible;
+}
+
+.decoration-option {
+  padding: 8px 12px;
+  border: none;
+  background: #f5f5f5;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.decoration-option:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.decoration-option.active {
+  background: #667eea;
+  color: white;
+}
+
+.decoration-menu-divider {
+  width: 100%;
+  height: 1px;
+  background: #e0e0e0;
+  margin: 4px 0;
+}
+
+/* Pin decoration - Realistic thumbtack */
+.sticker-badge.has-pin {
+  overflow: visible;
+}
+
+.sticker-badge.has-pin::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 28px;
+  height: 28px;
+  background: 
+    radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 15%, #ff6b6b 20%, #e74c3c 40%, #c0392b 70%, #a93226 100%),
+    radial-gradient(circle at 70% 30%, rgba(255, 255, 255, 0.5) 0%, transparent 50%);
+  border-radius: 50%;
+  box-shadow: 
+    0 4px 8px rgba(0, 0, 0, 0.4),
+    0 2px 4px rgba(0, 0, 0, 0.3),
+    inset 0 2px 4px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+  z-index: 100;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.sticker-badge.has-pin::after {
+  content: '';
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.5px;
+  height: 18px;
+  background: 
+    linear-gradient(180deg, 
+      #c0c0c0 0%, 
+      #a0a0a0 20%, 
+      #808080 40%, 
+      #606060 60%, 
+      #808080 80%, 
+      #a0a0a0 100%
+    );
+  box-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.6),
+    inset 0 1px 1px rgba(255, 255, 255, 0.3),
+    inset 0 -1px 1px rgba(0, 0, 0, 0.4);
+  z-index: 99;
+  border-radius: 0.75px;
+  /* Sharp point at bottom */
+  clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 50% 100%, 0% 95%);
+}
+
+/* Tape decoration (user-selected) - on corners */
+.sticker-badge.has-tape-decoration {
+  overflow: visible;
+}
+
+/* Top-left corner tape */
+.sticker-badge.has-tape-decoration::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 10px;
+  transform: rotate(-45deg);
+  width: 65px;
+  height: 16px;
+  background: 
+    /* Base translucent orange/peach tape color */
+    linear-gradient(180deg, 
+      rgba(255, 200, 150, 0.75) 0%, 
+      rgba(255, 180, 130, 0.8) 20%, 
+      rgba(255, 200, 150, 0.75) 40%, 
+      rgba(255, 190, 140, 0.8) 60%, 
+      rgba(255, 200, 150, 0.75) 80%, 
+      rgba(255, 180, 130, 0.8) 100%
+    ),
+    /* Subtle texture */
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 0.5px,
+      rgba(255, 160, 120, 0.1) 0.5px,
+      rgba(255, 160, 120, 0.1) 1px
+    );
+  /* Jagged/torn edges using clip-path */
+  clip-path: polygon(
+    0% 0%,
+    2% 5%,
+    5% 2%,
+    8% 8%,
+    12% 3%,
+    15% 7%,
+    18% 1%,
+    20% 6%,
+    25% 3%,
+    30% 8%,
+    35% 2%,
+    40% 7%,
+    45% 1%,
+    50% 6%,
+    55% 2%,
+    60% 8%,
+    65% 3%,
+    70% 7%,
+    75% 1%,
+    80% 6%,
+    85% 3%,
+    88% 8%,
+    92% 2%,
+    95% 7%,
+    98% 4%,
+    100% 0%,
+    100% 100%,
+    98% 95%,
+    95% 98%,
+    92% 92%,
+    88% 97%,
+    85% 93%,
+    80% 94%,
+    75% 99%,
+    70% 93%,
+    65% 97%,
+    60% 92%,
+    55% 98%,
+    50% 94%,
+    45% 99%,
+    40% 93%,
+    35% 98%,
+    30% 92%,
+    25% 97%,
+    20% 94%,
+    18% 99%,
+    15% 93%,
+    12% 97%,
+    8% 92%,
+    5% 98%,
+    2% 95%,
+    0% 100%
+  );
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px rgba(200, 120, 80, 0.2);
+  z-index: 100;
+  border: none;
+}
+
+.sticker-badge.has-tape-decoration::after {
+  content: '';
+  position: absolute;
+  top: 30px;
+  right: 10px;
+  transform: rotate(45deg);
+  width: 65px;
+  height: 16px;
+  background: 
+    linear-gradient(180deg, 
+      rgba(255, 200, 150, 0.75) 0%, 
+      rgba(255, 180, 130, 0.8) 20%, 
+      rgba(255, 200, 150, 0.75) 40%, 
+      rgba(255, 190, 140, 0.8) 60%, 
+      rgba(255, 200, 150, 0.75) 80%, 
+      rgba(255, 180, 130, 0.8) 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0px,
+      transparent 0.5px,
+      rgba(255, 160, 120, 0.1) 0.5px,
+      rgba(255, 160, 120, 0.1) 1px
+    );
+  clip-path: polygon(
+    0% 0%,
+    2% 5%,
+    5% 2%,
+    8% 8%,
+    12% 3%,
+    15% 7%,
+    18% 1%,
+    20% 6%,
+    25% 3%,
+    30% 8%,
+    35% 2%,
+    40% 7%,
+    45% 1%,
+    50% 6%,
+    55% 2%,
+    60% 8%,
+    65% 3%,
+    70% 7%,
+    75% 1%,
+    80% 6%,
+    85% 3%,
+    88% 8%,
+    92% 2%,
+    95% 7%,
+    98% 4%,
+    100% 0%,
+    100% 100%,
+    98% 95%,
+    95% 98%,
+    92% 92%,
+    88% 97%,
+    85% 93%,
+    80% 94%,
+    75% 99%,
+    70% 93%,
+    65% 97%,
+    60% 92%,
+    55% 98%,
+    50% 94%,
+    45% 99%,
+    40% 93%,
+    35% 98%,
+    30% 92%,
+    25% 97%,
+    20% 94%,
+    18% 99%,
+    15% 93%,
+    12% 97%,
+    8% 92%,
+    5% 98%,
+    2% 95%,
+    0% 100%
+  );
+  box-shadow: 
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    0 1px 3px rgba(0, 0, 0, 0.2),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -1px 2px rgba(200, 120, 80, 0.2);
+  z-index: 100;
+  border: none;
+}
+
+/* Magnet decoration */
+/* Magnet decoration - Block magnet */
+.sticker-badge.has-magnet {
+  overflow: visible;
+}
+
+.sticker-badge.has-magnet::before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 18px;
+  background: 
+    linear-gradient(135deg, 
+      #1a1a1a 0%, 
+      #2c2c2c 15%, 
+      #1a1a1a 30%, 
+      #0f0f0f 50%, 
+      #1a1a1a 70%, 
+      #2c2c2c 85%, 
+      #1a1a1a 100%
+    ),
+    radial-gradient(ellipse at center, 
+      rgba(100, 100, 100, 0.3) 0%, 
+      transparent 70%
+    );
+  border-radius: 2px; /* Sharp corners for block magnet */
+  box-shadow: 
+    0 4px 10px rgba(0, 0, 0, 0.5),
+    0 2px 4px rgba(0, 0, 0, 0.4),
+    inset 0 2px 4px rgba(255, 255, 255, 0.15),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+    inset 0 0 2px rgba(150, 150, 150, 0.2);
+  z-index: 100;
+  border: 1px solid rgba(0, 0, 0, 0.6);
+}
+
+.sticker-badge.has-magnet::after {
+  content: '';
+  position: absolute;
+  top: 42px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 12px;
+  background: 
+    linear-gradient(135deg,
+      rgba(200, 200, 200, 0.2) 0%,
+      rgba(150, 150, 150, 0.3) 30%,
+      rgba(100, 100, 100, 0.2) 50%,
+      rgba(150, 150, 150, 0.3) 70%,
+      rgba(200, 200, 200, 0.2) 100%
+    );
+  border-radius: 1px; /* Sharp corners */
+  z-index: 101;
+  box-shadow: 
+    inset 0 1px 2px rgba(255, 255, 255, 0.25),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.4);
+  pointer-events: none;
+}
+
+/* Tape effect */
+.sticker-badge.has-tape::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-5deg);
+  width: 40px;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+}
+
+.sticker-badge.has-tape::after {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-5deg);
+  width: 40px;
+  height: 12px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent 0px,
+    transparent 2px,
+    rgba(0, 0, 0, 0.05) 2px,
+    rgba(0, 0, 0, 0.05) 4px
+  );
+  z-index: 2;
+}
+
+/* Doodle effect */
+.sticker-badge.has-doodle {
+  position: relative;
+}
+
+.sticker-badge.has-doodle::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #ff6b6b;
+  border-radius: 50% 50% 50% 0;
+  transform: rotate(-45deg);
+  z-index: 1;
+  opacity: 0.6;
+}
+
+.sticker-badge.has-doodle::after {
+  content: '✎';
+  position: absolute;
+  bottom: -8px;
+  left: -8px;
+  font-size: 16px;
+  color: #4ecdc4;
+  transform: rotate(-15deg);
+  z-index: 1;
+  opacity: 0.5;
+}
+
+/* Hover effect - lift and deepen shadow */
+.sticker-badge:hover {
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+}
+
+.badge-delete {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.2s, background 0.2s, transform 0.2s;
+  z-index: 1001;
+  font-weight: bold;
+  line-height: 1;
+}
+
+.sticker-badge:hover .badge-delete {
+  opacity: 1;
+}
+
+.badge-delete:hover {
+  background: rgba(255, 0, 0, 0.8);
+  transform: scale(1.1);
+}
+
+.sticker-badge.selected {
+  border-color: #667eea;
+  box-shadow: 0 8px 30px rgba(102, 126, 234, 0.5);
+}
+
+.sticker-badge.right-clicked {
+  border-color: #ffd700;
+  box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+  background: linear-gradient(135deg, #fff9c4 0%, #fff59d 100%);
+  z-index: 999 !important;
+}
+
+.sticker-badge.related {
+  border-color: #4caf50;
+  box-shadow: 0 8px 30px rgba(76, 175, 80, 0.5);
+  background: linear-gradient(135deg, #c8e6c9 0%, #a5d6a7 100%);
+  z-index: 998 !important;
+}
+
+.sticker-badge.dimmed {
+  opacity: 0.2 !important;
+  filter: grayscale(0.8);
+}
+
+.badge-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  position: relative; /* For tape decorations on corners */
+  padding: 10px;
+  text-align: center;
+  pointer-events: none;
+  width: 100%;
+  height: 100%;
+}
+
+.badge-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 16px;
+  display: block;
+}
+
+.badge-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+  border: 2px dashed #ccc;
+  border-radius: 12px;
+  color: #999;
+}
+
+.badge-placeholder-icon {
+  font-size: 32px;
+  opacity: 0.5;
+}
+
+.badge-emoji {
+  font-size: 36px;
+  line-height: 1;
+}
+
+.badge-icon {
+  font-size: 32px;
+  line-height: 1;
+}
+
+.badge-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  word-break: break-word;
+  max-width: 100px;
+}
+
+/* Inline overlay for badge details */
+.badge-overlay {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-top: 15px;
+  background: white;
+  border-radius: 12px;
+  padding: 15px;
+  min-width: 200px;
+  max-width: 300px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+  z-index: 1001;
+  pointer-events: auto;
+  border: 2px solid #667eea;
+  /* Center horizontally - this will be combined with Framer Motion transforms */
+  transform-origin: center top;
+}
+
+.badge-overlay::before {
+  content: '';
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 8px solid transparent;
+  border-right: 8px solid transparent;
+  border-bottom: 8px solid white;
+}
+
+.overlay-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.overlay-image {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.overlay-emoji {
+  font-size: 24px;
+  line-height: 1;
+}
+
+.overlay-header h3 {
+  margin: 0;
+  color: #333;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.overlay-description {
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+
+.overlay-event-info {
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.event-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.event-label {
+  font-weight: 600;
+  color: #667eea;
+  min-width: 70px;
+  flex-shrink: 0;
+}
+
+.event-value {
+  color: #333;
+  flex: 1;
+}
+
+.overlay-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-item {
+  padding: 8px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.detail-item strong {
+  color: #667eea;
+  margin-right: 6px;
+}
+
+
+.density-field-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 5000;
+}
+
+.density-info {
+  position: absolute;
+  top: 80px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 10px 15px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #666;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .sticker-wall-controls {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    padding: 10px 15px;
+  }
+
+  .instructions p {
+    font-size: 11px;
+  }
+
+  .sticker-badge {
+    width: 100px;
+    height: 100px;
+  }
+
+  .badge-emoji {
+    font-size: 28px;
+  }
+
+  .badge-label {
+    font-size: 10px;
+  }
+
+  .badge-overlay {
+    min-width: 180px;
+    max-width: 250px;
+    padding: 12px;
+  }
+}
