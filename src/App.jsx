@@ -97,7 +97,7 @@ const demoIDCard = {
     twitter: "@alexr",
     snapchat: "alexr99"
   },
-  decoration: null
+  decoration: 'pin'
 };
 
 function App() {

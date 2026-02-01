@@ -975,11 +975,13 @@
 /* ===== ID Card Section ===== */
 .id-card-section {
   position: relative;
-  margin-bottom: 24px;
+  margin-bottom: 54px;
+  padding-top: 20px;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   z-index: 50;
+  width: 100%;
 }
 
 /* ===== Map Section ===== */
