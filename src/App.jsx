@@ -10,12 +10,86 @@ const sampleBadges = [];
 // Start with empty sticky notes - user can add their own
 const initialStickyNotes = [];
 
+// Demo map pins with party data for the globe
+const demoMapPins = [
+  {
+    id: 1,
+    x: 22,
+    y: 38,
+    partyName: "New Year's Eve Bash",
+    partyDate: "December 31, 2024",
+    partyLocation: "New York City, USA",
+    partyImage: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400",
+    partyDescription: "Ring in the new year with friends at Times Square!"
+  },
+  {
+    id: 2,
+    x: 48,
+    y: 35,
+    partyName: "Art Gallery Opening",
+    partyDate: "March 15, 2025",
+    partyLocation: "Paris, France",
+    partyImage: "https://images.unsplash.com/photo-1499856871958-5b9627545d1a?w=400",
+    partyDescription: "Exclusive preview of contemporary art exhibition."
+  },
+  {
+    id: 3,
+    x: 82,
+    y: 40,
+    partyName: "Cherry Blossom Festival",
+    partyDate: "April 5, 2025",
+    partyLocation: "Tokyo, Japan",
+    partyImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=400",
+    partyDescription: "Celebrate hanami season under the sakura trees."
+  },
+  {
+    id: 4,
+    x: 86,
+    y: 78,
+    partyName: "Beach Bonfire",
+    partyDate: "January 20, 2025",
+    partyLocation: "Sydney, Australia",
+    partyImage: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400",
+    partyDescription: "Sunset beach party with live music at Bondi Beach."
+  },
+  {
+    id: 5,
+    x: 54,
+    y: 55,
+    partyName: "Safari Adventure Party",
+    partyDate: "June 10, 2025",
+    partyLocation: "Nairobi, Kenya",
+    partyImage: "https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400",
+    partyDescription: "Wildlife viewing followed by dinner under the stars."
+  },
+  {
+    id: 6,
+    x: 32,
+    y: 68,
+    partyName: "Carnival Celebration",
+    partyDate: "February 28, 2025",
+    partyLocation: "Rio de Janeiro, Brazil",
+    partyImage: "https://images.unsplash.com/photo-1551887373-6edba6dacbb1?w=400",
+    partyDescription: "Join the world's biggest party with samba and costumes!"
+  },
+  {
+    id: 7,
+    x: 68,
+    y: 45,
+    partyName: "Bollywood Night",
+    partyDate: "November 5, 2025",
+    partyLocation: "Mumbai, India",
+    partyImage: "https://images.unsplash.com/photo-1545959570-a94084071b5d?w=400",
+    partyDescription: "Dance the night away with Bollywood hits and cuisine."
+  }
+];
+
 function App() {
   const [badges, setBadges] = useState(sampleBadges);
   const [theme, setTheme] = useState('corkboard');
   const [stickyNotes, setStickyNotes] = useState(initialStickyNotes);
   const [photos, setPhotos] = useState([]);
-  const [mapPins, setMapPins] = useState([]);
+  const [mapPins] = useState(demoMapPins);
   const [placementMode, setPlacementMode] = useState(null); // 'badge', 'stickyNote', 'photo', or null
   const [nextId, setNextId] = useState(1000); // Start high to avoid conflicts
   const [photoEditorOpen, setPhotoEditorOpen] = useState(false);
@@ -91,20 +165,6 @@ function App() {
         return photo;
       })
     );
-  }, []);
-
-  const handleMapPinAdd = useCallback((x, y) => {
-    const newPin = {
-      id: nextId,
-      x,
-      y,
-    };
-    setMapPins(prev => [...prev, newPin]);
-    setNextId(prev => prev + 1);
-  }, [nextId]);
-
-  const handleMapPinDelete = useCallback((id) => {
-    setMapPins(prev => prev.filter(pin => pin.id !== id));
   }, []);
 
   const handlePhotoEdit = useCallback((id) => {
@@ -341,8 +401,6 @@ function App() {
         onPhotoDelete={handlePhotoDelete}
         onPhotoEdit={handlePhotoEdit}
         onPhotoDecorationUpdate={handlePhotoDecorationUpdate}
-        onMapPinAdd={handleMapPinAdd}
-        onMapPinDelete={handleMapPinDelete}
         placementMode={placementMode}
         onPlacementClick={handlePlacementClick}
       />

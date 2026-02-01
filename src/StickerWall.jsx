@@ -6,14 +6,14 @@ import Photo from './Photo';
 import Map from './Map';
 import './StickerWall.css';
 
-const StickerWall = ({ 
-  badges = [], 
-  stickyNotes = [], 
+const StickerWall = ({
+  badges = [],
+  stickyNotes = [],
   photos = [],
   mapPins = [],
-  theme = 'corkboard', 
-  seed = 12345, 
-  onStickyNoteUpdate, 
+  theme = 'corkboard',
+  seed = 12345,
+  onStickyNoteUpdate,
   onStickyNoteDelete,
   onBadgeUpdate,
   onBadgeDelete,
@@ -22,8 +22,6 @@ const StickerWall = ({
   onPhotoDelete,
   onPhotoEdit,
   onPhotoDecorationUpdate,
-  onMapPinAdd,
-  onMapPinDelete,
   placementMode = null,
   onPlacementClick
 }) => {
@@ -180,11 +178,7 @@ const StickerWall = ({
           }}
         >
         {/* Map at the top */}
-        <Map
-          pins={mapPins}
-          onPinAdd={onMapPinAdd}
-          onPinDelete={onMapPinDelete}
-        />
+        <Map pins={mapPins} />
 
         {/* Sticky Notes - positioned inside the scaled board */}
         <AnimatePresence>
