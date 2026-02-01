@@ -1,0 +1,397 @@
+/* Partiful Brand Colors */
+:root {
+  --partiful-studio: #9c47ae;
+  --partiful-majorelle-blue: #5B4CDB;
+  --partiful-indigo: #3B2D8C;
+  --card-bg: #1A1A1A;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0B0B0;
+}
+
+/* ===== ID Card Container ===== */
+.id-card {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--card-bg);
+  border-radius: 16px;
+  padding: 20px;
+  min-height: 160px;
+  box-shadow:
+    0 4px 12px rgba(156, 71, 174, 0.3),
+    0 0 1px rgba(156, 71, 174, 0.2);
+  border: 1px solid rgba(156, 71, 174, 0.2);
+  cursor: pointer;
+  overflow: visible;
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.id-card:hover {
+  box-shadow:
+    0 8px 24px rgba(156, 71, 174, 0.4),
+    0 0 1px rgba(156, 71, 174, 0.3);
+}
+
+/* ===== Left Section ===== */
+.id-card-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Avatar */
+.avatar-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-gradient {
+  padding: 3px;
+  background: linear-gradient(135deg, var(--partiful-studio) 0%, var(--partiful-majorelle-blue) 100%);
+  border-radius: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-image,
+.avatar-initial {
+  width: 80px;
+  height: 80px;
+  border-radius: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--card-bg);
+  object-fit: cover;
+}
+
+.avatar-initial {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--text-primary);
+  background: linear-gradient(135deg, var(--partiful-studio) 0%, var(--partiful-majorelle-blue) 100%);
+}
+
+/* Name & Tagline */
+.profile-name {
+  color: var(--text-primary);
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin: 12px 0 0 0;
+}
+
+.profile-tagline {
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 400;
+  font-style: italic;
+  margin: 4px 0 0 0;
+}
+
+/* ===== Divider ===== */
+.id-card-divider {
+  width: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  margin: 0 16px;
+}
+
+/* ===== Right Section ===== */
+.id-card-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Stats Row */
+.stats-row {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+}
+
+.stat-value {
+  color: var(--text-primary);
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stat-label {
+  color: var(--text-secondary);
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* Social Links */
+.social-links {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 18px;
+  background-color: rgba(156, 71, 174, 0.2);
+  border: 1px solid rgba(156, 71, 174, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.social-icon:hover {
+  background-color: rgba(156, 71, 174, 0.3);
+  transform: scale(1.1);
+}
+
+.social-icon svg {
+  display: block;
+}
+
+/* ===== Delete Button ===== */
+.id-card-delete {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 22px;
+  height: 22px;
+  border: none;
+  background: rgba(255, 107, 107, 0.9);
+  color: white;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.2s ease;
+  z-index: 20;
+}
+
+.id-card:hover .id-card-delete {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.id-card-delete:hover {
+  background: rgba(238, 82, 83, 1);
+  transform: scale(1.1);
+}
+
+/* ===== Decoration Menu ===== */
+.id-card-decoration-menu {
+  position: absolute;
+  top: -100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  display: flex;
+  gap: 4px;
+  z-index: 1000;
+  overflow: visible;
+}
+
+.deco-btn {
+  padding: 10px 16px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #4a5568;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.deco-btn:hover {
+  background: #f7fafc;
+}
+
+.deco-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* ===== Decorations (Pin, Tape, Magnet) ===== */
+.id-card.has-pin::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 32px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.9) 15%, #ff6b6b 20%, #e74c3c 40%, #c0392b 70%, #a93226 100%);
+  border-radius: 50%;
+  box-shadow:
+    0 6px 12px rgba(0,0,0,0.4),
+    inset 0 2px 4px rgba(255,255,255,0.4),
+    inset 0 -2px 4px rgba(0,0,0,0.2);
+  z-index: 100;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+.id-card.has-pin::after {
+  content: '';
+  position: absolute;
+  top: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 22px;
+  background: linear-gradient(180deg, #c0c0c0 0%, #606060 50%, #a0a0a0 100%);
+  box-shadow: 0 3px 6px rgba(0,0,0,0.5);
+  z-index: 99;
+  border-radius: 1px;
+  clip-path: polygon(0% 0%, 100% 0%, 100% 95%, 50% 100%, 0% 95%);
+}
+
+.id-card.has-tape::before,
+.id-card.has-tape::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 80px;
+  height: 24px;
+  background: linear-gradient(180deg, rgba(255,220,180,0.85) 0%, rgba(255,200,150,0.8) 100%);
+  clip-path: polygon(
+    0% 10%, 5% 5%, 10% 8%, 15% 3%, 20% 7%, 25% 2%, 30% 6%, 35% 1%, 40% 5%, 45% 0%,
+    50% 4%, 55% 0%, 60% 5%, 65% 1%, 70% 6%, 75% 2%, 80% 7%, 85% 3%, 90% 8%, 95% 5%, 100% 10%,
+    100% 90%, 95% 95%, 90% 92%, 85% 97%, 80% 93%, 75% 98%, 70% 94%, 65% 99%, 60% 95%,
+    55% 100%, 50% 96%, 45% 100%, 40% 95%, 35% 99%, 30% 94%, 25% 98%, 20% 93%, 15% 97%,
+    10% 92%, 5% 95%, 0% 90%
+  );
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  z-index: 100;
+}
+
+.id-card.has-tape::before {
+  left: -15px;
+  transform: rotate(-15deg);
+}
+
+.id-card.has-tape::after {
+  right: -15px;
+  transform: rotate(15deg);
+}
+
+.id-card.has-magnet::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 22px;
+  background: linear-gradient(135deg, #2c2c2c 0%, #1a1a1a 50%, #2c2c2c 100%);
+  border-radius: 4px;
+  box-shadow:
+    0 4px 12px rgba(0,0,0,0.5),
+    inset 0 2px 4px rgba(255,255,255,0.1);
+  z-index: 100;
+  border: 1px solid rgba(0,0,0,0.6);
+}
+
+.id-card.has-magnet::after {
+  content: '';
+  position: absolute;
+  top: 9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 16px;
+  background: linear-gradient(135deg, rgba(200,200,200,0.2) 0%, rgba(100,100,100,0.2) 100%);
+  border-radius: 2px;
+  z-index: 101;
+}
+
+/* ===== Mobile Responsive ===== */
+@media (max-width: 768px) {
+  .id-card {
+    min-height: 140px;
+    border-radius: 12px;
+    padding: 16px;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .id-card-divider {
+    width: 100%;
+    height: 1px;
+    margin: 0;
+  }
+
+  .id-card-left,
+  .id-card-right {
+    align-items: center;
+  }
+
+  .id-card-left {
+    gap: 12px;
+  }
+
+  .profile-name {
+    font-size: 18px;
+    text-align: center;
+  }
+
+  .profile-tagline {
+    font-size: 12px;
+    text-align: center;
+  }
+
+  .avatar-image,
+  .avatar-initial {
+    width: 70px;
+    height: 70px;
+    border-radius: 35px;
+  }
+
+  .avatar-gradient {
+    border-radius: 38px;
+  }
+
+  .stats-row {
+    gap: 16px;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+
+  .stat-label {
+    font-size: 9px;
+  }
+}

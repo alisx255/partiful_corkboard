@@ -84,12 +84,29 @@ const demoMapPins = [
   }
 ];
 
+// Demo ID card data
+const demoIDCard = {
+  id: 500,
+  name: "Alex Rivera",
+  tagline: "Life of the party since '99",
+  avatar: "https://i.pravatar.cc/300?img=32",
+  partiesAttended: 47,
+  partiesHosted: 12,
+  socialLinks: {
+    instagram: "@alexrivera",
+    twitter: "@alexr",
+    snapchat: "alexr99"
+  },
+  decoration: null
+};
+
 function App() {
   const [badges, setBadges] = useState(sampleBadges);
   const [theme, setTheme] = useState('corkboard');
   const [stickyNotes, setStickyNotes] = useState(initialStickyNotes);
   const [photos, setPhotos] = useState([]);
   const [mapPins] = useState(demoMapPins);
+  const [idCards, setIdCards] = useState([demoIDCard]);
   const [placementMode, setPlacementMode] = useState(null); // 'badge', 'stickyNote', 'photo', or null
   const [nextId, setNextId] = useState(1000); // Start high to avoid conflicts
   const [photoEditorOpen, setPhotoEditorOpen] = useState(false);
@@ -175,6 +192,16 @@ function App() {
       setPhotoEditorOpen(true);
     }
   }, [photos]);
+
+  const handleIDCardDelete = useCallback((id) => {
+    setIdCards(prev => prev.filter(card => card.id !== id));
+  }, []);
+
+  const handleIDCardDecorationUpdate = useCallback((id, decoration) => {
+    setIdCards(prev =>
+      prev.map(card => (card.id === id ? { ...card, decoration } : card))
+    );
+  }, []);
 
   const handlePhotoSave = useCallback((images) => {
     if (editingPhotoId) {
@@ -386,10 +413,11 @@ function App() {
           </span>
         )}
       </div>
-      <StickerWall 
-        badges={badges} 
+      <StickerWall
+        badges={badges}
         stickyNotes={stickyNotes}
         photos={photos}
+        idCards={idCards}
         mapPins={mapPins}
         theme={theme}
         onStickyNoteUpdate={handleStickyNoteUpdate}
@@ -401,6 +429,8 @@ function App() {
         onPhotoDelete={handlePhotoDelete}
         onPhotoEdit={handlePhotoEdit}
         onPhotoDecorationUpdate={handlePhotoDecorationUpdate}
+        onIDCardDelete={handleIDCardDelete}
+        onIDCardDecorationUpdate={handleIDCardDecorationUpdate}
         placementMode={placementMode}
         onPlacementClick={handlePlacementClick}
       />

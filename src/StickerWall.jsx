@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useBadgePositions } from './hooks/useBadgePositions';
 import StickyNote from './StickyNote';
 import Photo from './Photo';
+import IDCard from './IDCard';
 import Map from './Map';
 import './StickerWall.css';
 
@@ -10,6 +11,7 @@ const StickerWall = ({
   badges = [],
   stickyNotes = [],
   photos = [],
+  idCards = [],
   mapPins = [],
   theme = 'corkboard',
   seed = 12345,
@@ -22,6 +24,8 @@ const StickerWall = ({
   onPhotoDelete,
   onPhotoEdit,
   onPhotoDecorationUpdate,
+  onIDCardDelete,
+  onIDCardDecorationUpdate,
   placementMode = null,
   onPlacementClick
 }) => {
@@ -177,8 +181,31 @@ const StickerWall = ({
             overflow: 'visible',
           }}
         >
-        {/* Map at the top */}
-        <Map pins={mapPins} />
+        {/* ID Card Section - above map */}
+        <div className="id-card-section">
+          <AnimatePresence>
+            {idCards.map((card) => (
+              <IDCard
+                key={card.id}
+                id={card.id}
+                name={card.name}
+                tagline={card.tagline}
+                avatar={card.avatar}
+                partiesAttended={card.partiesAttended}
+                partiesHosted={card.partiesHosted}
+                socialLinks={card.socialLinks}
+                decoration={card.decoration}
+                onDelete={onIDCardDelete}
+                onDecorationUpdate={onIDCardDecorationUpdate}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* Map Section - below ID card */}
+        <div className="map-section">
+          <Map pins={mapPins} />
+        </div>
 
         {/* Sticky Notes - positioned inside the scaled board */}
         <AnimatePresence>
