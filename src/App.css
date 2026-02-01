@@ -48,6 +48,7 @@ body {
   border-radius: 6px;
   font-size: 12px;
   background: white;
+  color: black;
   cursor: pointer;
   outline: none;
 }
