@@ -57,6 +57,69 @@ body {
   border-color: #667eea;
 }
 
+/* Edit Mode Toggle */
+.edit-mode-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: 12px;
+  padding-left: 12px;
+  border-left: 1px solid #ddd;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 22px;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 22px;
+}
+
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: linear-gradient(135deg, #9c47ae 0%, #5B4CDB 100%);
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(18px);
+}
+
+.toggle-label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+  white-space: nowrap;
+}
+
 .placement-mode-indicator {
   margin-left: 15px;
   padding: 5px 12px;
@@ -85,6 +148,13 @@ body {
 .sticker-wall-container.placement-mode .sticky-note,
 .sticker-wall-container.placement-mode .photo-item {
   pointer-events: none;
+}
+
+/* View mode - clickable items */
+.sticker-wall-container.view-mode .sticker-badge,
+.sticker-wall-container.view-mode .sticky-note,
+.sticker-wall-container.view-mode .photo-strip {
+  cursor: pointer;
 }
 
 

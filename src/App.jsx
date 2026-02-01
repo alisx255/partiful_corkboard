@@ -147,6 +147,7 @@ function App() {
   const [mapPins] = useState(demoMapPins);
   const [idCards, setIdCards] = useState([demoIDCard]);
   const [placementMode, setPlacementMode] = useState(null); // 'badge', 'stickyNote', 'photo', or null
+  const [editMode, setEditMode] = useState(true); // Toggle between edit mode and view mode
   const [nextId, setNextId] = useState(1000); // Start high to avoid conflicts
   const [photoEditorOpen, setPhotoEditorOpen] = useState(false);
   const [editingPhotoId, setEditingPhotoId] = useState(null);
@@ -446,6 +447,17 @@ function App() {
           <option value="locker">Locker</option>
           <option value="notebook">Notebook</option>
         </select>
+        <div className="edit-mode-toggle">
+          <label className="toggle-switch">
+            <input
+              type="checkbox"
+              checked={editMode}
+              onChange={(e) => setEditMode(e.target.checked)}
+            />
+            <span className="toggle-slider"></span>
+          </label>
+          <span className="toggle-label">{editMode ? 'Edit Mode' : 'View Mode'}</span>
+        </div>
         {placementMode && (
           <span className="placement-mode-indicator">
             Click on board to place {placementMode === 'badge' ? 'badge' : placementMode === 'stickyNote' ? 'sticky note' : 'photo'}
@@ -459,6 +471,7 @@ function App() {
         idCards={idCards}
         mapPins={mapPins}
         theme={theme}
+        editMode={editMode}
         onStickyNoteUpdate={handleStickyNoteUpdate}
         onStickyNoteDelete={handleStickyNoteDelete}
         onBadgeUpdate={handleBadgeUpdate}

@@ -7,6 +7,8 @@ import IDCard from './IDCard';
 import Map from './Map';
 import './StickerWall.css';
 
+const ALBUM_LINK = 'https://partifulalbumfeature.netlify.app/';
+
 const StickerWall = ({
   badges = [],
   stickyNotes = [],
@@ -15,6 +17,7 @@ const StickerWall = ({
   mapPins = [],
   theme = 'corkboard',
   seed = 12345,
+  editMode = true,
   onStickyNoteUpdate,
   onStickyNoteDelete,
   onBadgeUpdate,
@@ -144,7 +147,7 @@ const StickerWall = ({
   }, [placementMode, onPlacementClick, handleContainerClick]);
 
   return (
-    <div className={`sticker-wall-container theme-${theme} ${placementMode ? 'placement-mode' : ''}`} ref={containerRef} onClick={handleBoardClick}>
+    <div className={`sticker-wall-container theme-${theme} ${placementMode ? 'placement-mode' : ''} ${!editMode ? 'view-mode' : ''}`} ref={containerRef} onClick={handleBoardClick}>
       <div className="sticker-wall-controls">
         <div className="instructions">
           <p>Hover: Lift | Click: Details | Right-click: Highlight related</p>
@@ -220,6 +223,7 @@ const StickerWall = ({
               y={note.y}
               rotation={note.rotation || 0}
               color={note.color || 'yellow'}
+              editMode={editMode}
               onUpdate={onStickyNoteUpdate}
               onDelete={onStickyNoteDelete}
               onPositionUpdate={(id, offset) => {
@@ -249,6 +253,7 @@ const StickerWall = ({
               rotation={photo.rotation || 0}
               width={photo.width}
               height={photo.height}
+              editMode={editMode}
               onUpdate={onPhotoUpdate}
               onDelete={onPhotoDelete}
               onEdit={onPhotoEdit}
@@ -332,12 +337,16 @@ const StickerWall = ({
                   e.stopPropagation();
                   // Don't place on existing badges
                   return;
+                } else if (!editMode) {
+                  // View mode - open link in new tab
+                  e.stopPropagation();
+                  window.open(ALBUM_LINK, '_blank');
                 } else {
                   handleBadgeClick(e, badgeId);
                 }
               }}
-              onContextMenu={(e) => handleBadgeRightClick(e, badgeId)}
-              drag={!placementMode}
+              onContextMenu={(e) => editMode && handleBadgeRightClick(e, badgeId)}
+              drag={editMode && !placementMode}
               dragMomentum={false}
               dragElastic={0}
               dragConstraints={false}
@@ -368,18 +377,20 @@ const StickerWall = ({
                 }
               }}
             >
-              <button 
-                className="badge-delete" 
-                onClick={(e) => {
-                  e.stopPropagation();
-                  if (onBadgeDelete) {
-                    onBadgeDelete(badgeId);
-                  }
-                }} 
-                title="Delete badge"
-              >
-                ×
-              </button>
+              {editMode && (
+                <button
+                  className="badge-delete"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (onBadgeDelete) {
+                      onBadgeDelete(badgeId);
+                    }
+                  }}
+                  title="Delete badge"
+                >
+                  ×
+                </button>
+              )}
               <div className="badge-content">
                 {badge.image ? (
                   <img 

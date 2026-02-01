@@ -2,16 +2,19 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './Photo.css';
 
-const Photo = ({ 
-  id, 
+const ALBUM_LINK = 'https://partifulalbumfeature.netlify.app/';
+
+const Photo = ({
+  id,
   images = [], // Array of image URLs
-  x, 
-  y, 
-  rotation, 
-  width = 200, 
-  height = 200, 
-  onUpdate, 
-  onDelete, 
+  x,
+  y,
+  rotation,
+  width = 200,
+  height = 200,
+  editMode = true,
+  onUpdate,
+  onDelete,
   onEdit,
   decoration = null,
   onDecorationUpdate
@@ -70,7 +73,7 @@ const Photo = ({
         y: -5,
         transition: { duration: 0.2 }
       }}
-      drag
+      drag={editMode}
       dragMomentum={false}
       dragElastic={0}
       dragConstraints={false}
@@ -100,10 +103,14 @@ const Photo = ({
           });
         }
       }}
-      onContextMenu={handleRightClick}
+      onContextMenu={editMode ? handleRightClick : undefined}
       onClick={(e) => {
-        // Close menu when clicking outside
-        if (!e.target.closest('.photo-decoration-menu')) {
+        if (!editMode) {
+          // View mode - open link in new tab
+          e.stopPropagation();
+          window.open(ALBUM_LINK, '_blank');
+        } else if (!e.target.closest('.photo-decoration-menu')) {
+          // Close menu when clicking outside
           setRightClicked(false);
         }
       }}
@@ -139,10 +146,12 @@ const Photo = ({
           </div>
         )}
       </div>
-      <button className="photo-delete" onClick={handleDelete} title="Delete photo strip">
-        ×
-      </button>
-      {onEdit && (
+      {editMode && (
+        <button className="photo-delete" onClick={handleDelete} title="Delete photo strip">
+          ×
+        </button>
+      )}
+      {editMode && onEdit && (
         <button className="photo-edit" onClick={handleEdit} title="Edit photos">
           ✏️
         </button>

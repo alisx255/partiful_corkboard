@@ -2,7 +2,9 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence, useMotionValue } from 'framer-motion';
 import './StickyNote.css';
 
-const StickyNote = ({ id, text, x, y, rotation, color = 'yellow', onUpdate, onDelete, onPositionUpdate, placementMode, onPlacementClick }) => {
+const ALBUM_LINK = 'https://partifulalbumfeature.netlify.app/';
+
+const StickyNote = ({ id, text, x, y, rotation, color = 'yellow', editMode = true, onUpdate, onDelete, onPositionUpdate, placementMode, onPlacementClick }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [noteText, setNoteText] = useState(text || '');
   const [showEditButton, setShowEditButton] = useState(false);
@@ -63,7 +65,7 @@ const StickyNote = ({ id, text, x, y, rotation, color = 'yellow', onUpdate, onDe
   };
 
   const handleRightClick = (e) => {
-    if (!placementMode && !isEditing) {
+    if (editMode && !placementMode && !isEditing) {
       e.preventDefault();
       e.stopPropagation();
       setShowEditButton(true);
@@ -74,6 +76,10 @@ const StickyNote = ({ id, text, x, y, rotation, color = 'yellow', onUpdate, onDe
     if (placementMode && onPlacementClick) {
       e.stopPropagation();
       onPlacementClick(x, y);
+    } else if (!editMode) {
+      // View mode - open link in new tab
+      e.stopPropagation();
+      window.open(ALBUM_LINK, '_blank');
     } else {
       // Hide edit button on click outside
       setShowEditButton(false);
@@ -104,7 +110,7 @@ const StickyNote = ({ id, text, x, y, rotation, color = 'yellow', onUpdate, onDe
       {/* Drag handle - top portion only */}
       <motion.div
         className="sticky-note-drag-handle"
-        drag={!placementMode && !isEditing}
+        drag={editMode && !placementMode && !isEditing}
         dragMomentum={false}
         dragElastic={0}
         dragConstraints={false}
@@ -159,11 +165,13 @@ const StickyNote = ({ id, text, x, y, rotation, color = 'yellow', onUpdate, onDe
         />
       ) : (
         <>
-          <button className="sticky-note-delete" onClick={handleDelete} title="Delete note">
-            ×
-          </button>
+          {editMode && (
+            <button className="sticky-note-delete" onClick={handleDelete} title="Delete note">
+              ×
+            </button>
+          )}
           <AnimatePresence>
-            {showEditButton && (
+            {editMode && showEditButton && (
               <motion.button
                 className="sticky-note-edit"
                 onClick={handleEdit}
@@ -178,7 +186,7 @@ const StickyNote = ({ id, text, x, y, rotation, color = 'yellow', onUpdate, onDe
             )}
           </AnimatePresence>
           <div className="sticky-note-content">
-            {noteText || <span className="sticky-note-placeholder">Right-click to edit</span>}
+            {noteText || <span className="sticky-note-placeholder">{editMode ? 'Right-click to edit' : ''}</span>}
           </div>
         </>
       )}
